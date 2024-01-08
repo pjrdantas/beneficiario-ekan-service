@@ -13,7 +13,7 @@
 	</parent>
 
 
-	<groupId>br.com.ekan.beneficiario-ekan-service</groupId>
+	<groupId>br.com.ekan-ekan-service</groupId>
 	<artifactId>beneficiario-ekan-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>beneficiario-ekan-service</name>

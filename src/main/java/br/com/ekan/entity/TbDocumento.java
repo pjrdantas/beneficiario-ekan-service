@@ -1,4 +1,4 @@
-package br.com.ekan.beneficiarioekanservice.entity;
+package br.com.ekan.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,11 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+
 
 
 /**
@@ -62,5 +62,5 @@ public class TbDocumento implements Serializable {
 	}
 
 
-
+	
 }

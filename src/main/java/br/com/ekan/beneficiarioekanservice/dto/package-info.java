@@ -1,1 +1,0 @@
-package br.com.ekan.beneficiarioekanservice.dto;

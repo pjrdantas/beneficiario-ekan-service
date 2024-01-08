@@ -1,4 +1,4 @@
-package br.com.ekan.beneficiarioekanservice.config;
+package br.com.ekan.config;
 
 public class CreationException extends RuntimeException {
 

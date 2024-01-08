@@ -1,4 +1,4 @@
-package br.com.ekan.beneficiarioekanservice.entity;
+package br.com.ekan.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -38,6 +38,13 @@ public class TbBeneficiario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
+
+	@Column(name="TB_BENEFICIARIO_NOME")
+	private String tbBeneficiarioNome;
+
+	@Column(name="TB_BENEFICIARIO_TELEFONE")
+	private String tbBeneficiarioTelefone;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="TB_BENEFICIARIO_DATA_ATUALIZACAO")
 	private Date tbBeneficiarioDataAtualizacao;
@@ -50,11 +57,6 @@ public class TbBeneficiario implements Serializable {
 	@Column(name="TB_BENEFICIARIO_DATA_NASCIMENTO")
 	private Date tbBeneficiarioDataNascimento;
 
-	@Column(name="TB_BENEFICIARIO_NOME")
-	private String tbBeneficiarioNome;
-
-	@Column(name="TB_BENEFICIARIO_TELEFONE")
-	private String tbBeneficiarioTelefone;
 
 	//bi-directional many-to-one association to TbDocumento
 	@OneToMany(mappedBy="tbBeneficiario")
@@ -62,7 +64,6 @@ public class TbBeneficiario implements Serializable {
 
 	public TbBeneficiario() {
 	}
-
 
 
 }
