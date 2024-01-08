@@ -32,7 +32,7 @@ public class DocumentoController {
 	private DocumentoService documentoService;
 	
 	
-	@ApiOperation(value = "CONSULTAR LISTA DE DOCUMENTOS DE UM PERFIL")
+	@ApiOperation(value = "CONSULTAR LISTA DE DOCUMENTOS DE UM BENEFICIARIO")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 401, message = "Não Autorizado"),
