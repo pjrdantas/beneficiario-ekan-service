@@ -95,7 +95,7 @@ public class BeneficiarioController {
 	}
 	
 	
-	@ApiOperation(value = "ATUALIZAR PERFIL -  (Perfil)")
+	@ApiOperation(value = "ATUALIZAR BENEFICIARIOS")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 204, message = "Requisição foi bem-sucedida."),
