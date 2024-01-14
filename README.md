@@ -41,4 +41,8 @@ Para criação deste serviço, primeiramente foi criado a seguinte estrutura de 
  Foi usando a funcionalidade do eclipse  para se criar as classes entity e implementada o lombok nas mesmas.
  A versão do java utilizada foi : JDK 11.
 
+Este projeto possuiu um FRONTEND criando em Angular2+ Versão 14 - https://github.com/pjrdantas/beneficiario-ekan-app.git
+
+
+
 

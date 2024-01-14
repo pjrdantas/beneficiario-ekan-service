@@ -1,7 +1,6 @@
 // BeneficiarioDto
 package br.com.ekan.dto;
 
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,13 +30,13 @@ public class BeneficiarioDto {
     private String beneficiarioTelefone;
     
     @JsonProperty("beneficiarioDataAtualizacao")
-    private Date beneficiarioDataAtualizacao;
+    private String beneficiarioDataAtualizacao;
 
     @JsonProperty("beneficiarioDataInclusao")
-    private Date beneficiarioDataInclusao;
+    private String beneficiarioDataInclusao;
 
     @JsonProperty("beneficiarioDataNascimento")
-    private Date beneficiarioDataNascimento;
+    private String beneficiarioDataNascimento;
 
     @JsonProperty("documentos")
     private List<DocumentoDto> documentos;

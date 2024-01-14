@@ -9,7 +9,8 @@ public interface BeneficiarioService {
 	
 	void createBeneficiario(BeneficiarioDto beneficiarioDto)   throws SQLException; 
 	List<BeneficiarioDto> findAllBeneficiario()   throws SQLException; 
-	
+	BeneficiarioDto findBeneficiarioByName(String beneficiarioNome) throws SQLException;
+	BeneficiarioDto findBeneficiarioById(Long id) throws SQLException;
 	void updateBeneficiario(BeneficiarioDto beneficiarioDto)   throws SQLException;	
 	void deleteBeneficiario(Long id)   throws SQLException;
 	

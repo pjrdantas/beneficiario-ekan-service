@@ -1,6 +1,8 @@
 package br.com.ekan.repository.impl;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ public class DocumentoRepositoryImpl implements DocumentoRepository {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+	SimpleDateFormat formatador  = new SimpleDateFormat("dd/MM/yyyy");
+	String dataFormatada;
+	Date data;
 
 
 	@Override
@@ -58,6 +64,31 @@ public class DocumentoRepositoryImpl implements DocumentoRepository {
 	    return devolveListaObjetos(sql, params);
 	}
 
+	
+	@Override
+	public DocumentoDto findDocumentoById(Long id) throws SQLException {
+		StringBuilder sql = new StringBuilder(sqlSelectPrincipal);
+	    sql.append(" WHERE ID = :id");
+	    SqlParameterSource params = new MapSqlParameterSource().addValue("id", id);
+	    return jdbcTemplate.queryForObject(sql.toString(), params, (rs, i) -> {
+	    	DocumentoDto documentoDto = new DocumentoDto();
+	        documentoDto.setId(rs.getLong("ID")); 
+	        documentoDto.setDocumentoTipoDocumento(rs.getString("TB_DOCUMENTO_TIPO_DOCUMENTO"));
+	        documentoDto.setDocumentoDescricao(rs.getString("TB_DOCUMENTO_DESCRICAO"));
+	        dataFormatada = formatador.format(rs.getDate("TB_DOCUMENTO_DATA_INCLUSAO"));
+	        documentoDto.setDocumentoDataInclusao(dataFormatada);
+	        dataFormatada = formatador.format(rs.getDate("TB_DOCUMENTO_DATA_ATUALIZACAO"));
+	        documentoDto.setDocumentoDataAtualizacao(dataFormatada);	        
+	        documentoDto.setBeneficiarioId(rs.getLong("TB_BENEFICIARIO_ID"));
+	        return documentoDto;
+	    });
+	    
+	}
+
+
+	
+	
+	
 	final static StringBuilder sqlSelectPrincipal = new StringBuilder()
 	        .append("SELECT DISTINCT")
 	        .append(" ID") 
@@ -74,12 +105,41 @@ public class DocumentoRepositoryImpl implements DocumentoRepository {
 	        documentoDto.setId(rs.getLong("ID")); 
 	        documentoDto.setDocumentoTipoDocumento(rs.getString("TB_DOCUMENTO_TIPO_DOCUMENTO"));
 	        documentoDto.setDocumentoDescricao(rs.getString("TB_DOCUMENTO_DESCRICAO"));
-	        documentoDto.setDocumentoDataInclusao(rs.getDate("TB_DOCUMENTO_DATA_INCLUSAO"));
-	        documentoDto.setDocumentoDataAtualizacao(rs.getDate("TB_DOCUMENTO_DATA_ATUALIZACAO"));
+	        dataFormatada = formatador.format(rs.getDate("TB_DOCUMENTO_DATA_INCLUSAO"));
+	        documentoDto.setDocumentoDataInclusao(dataFormatada);
+	        dataFormatada = formatador.format(rs.getDate("TB_DOCUMENTO_DATA_ATUALIZACAO"));
+	        documentoDto.setDocumentoDataAtualizacao(dataFormatada);	        
 	        documentoDto.setBeneficiarioId(rs.getLong("TB_BENEFICIARIO_ID"));
 	        return documentoDto;
 	    });
 	}
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+	@Override
+	public void deleteDocumento(Long id) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" DELETE FROM ");
+		sql.append(" TB_DOCUMENTO ");
+		sql.append(" WHERE id = :id");
+		SqlParameterSource params = new MapSqlParameterSource().addValue("id", id);
+		jdbcTemplate.update(sql.toString(), params);
+		
+	}
+
+
 
 
 }

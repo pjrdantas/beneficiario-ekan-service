@@ -8,5 +8,5 @@ import br.com.ekan.dto.DocumentoDto;
 public interface DocumentoService {
 	
 	List<DocumentoDto> findDocumentoByIdBeneficiario(Long id) throws SQLException;
-
+	void deleteDocumento(Long id)   throws SQLException;
 }

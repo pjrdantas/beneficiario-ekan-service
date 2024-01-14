@@ -1,6 +1,8 @@
 package br.com.ekan.repository.impl;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,9 +26,16 @@ public class BeneficiarioRepositoryImpl implements BeneficiarioRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+	
+	SimpleDateFormat formatador  = new SimpleDateFormat("dd/MM/yyyy");
+	String dataFormatada;
+	Date data;
 
     @Override
     public void createBeneficiario(BeneficiarioDto beneficiarioDto) throws SQLException {
+    	
+   
     	
     	StringBuilder sql = new StringBuilder();
 		sql.append("  INSERT INTO ");
@@ -49,26 +58,45 @@ public class BeneficiarioRepositoryImpl implements BeneficiarioRepository {
     }
 
 	@Override
-	public BeneficiarioDto findBeneficiarioByName(String nome) throws SQLException {
-	    StringBuilder sql = new StringBuilder(sqlSelectNome);
+	public BeneficiarioDto findBeneficiarioByName(String beneficiarioNome) throws SQLException {
+	    StringBuilder sql = new StringBuilder(sqlSelectPrincipal);
 	    sql.append(" WHERE TB_BENEFICIARIO_NOME = :tbBeneficiarioNome");
-	    SqlParameterSource params = new MapSqlParameterSource().addValue("tbBeneficiarioNome", nome);
+	    SqlParameterSource params = new MapSqlParameterSource().addValue("tbBeneficiarioNome", beneficiarioNome);
 	    return jdbcTemplate.queryForObject(sql.toString(), params, (rs, i) -> {
 	        BeneficiarioDto beneficiarioDto = new BeneficiarioDto();            
 	        beneficiarioDto.setId(rs.getLong("id"));
 	        beneficiarioDto.setBeneficiarioNome(rs.getString("TB_BENEFICIARIO_NOME"));
+			beneficiarioDto.setBeneficiarioTelefone(rs.getString("TB_BENEFICIARIO_TELEFONE"));
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_ATUALIZACAO"));
+			beneficiarioDto.setBeneficiarioDataAtualizacao(dataFormatada);
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_INCLUSAO"));
+			beneficiarioDto.setBeneficiarioDataInclusao(dataFormatada);
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_NASCIMENTO"));
+			beneficiarioDto.setBeneficiarioDataNascimento(dataFormatada);
 	        _logger.info("...id do beneficiario :" + beneficiarioDto.getId());
 	        return beneficiarioDto;
-
-	    });
-	    
+	    });	    
 	}
 	
-	final static StringBuilder sqlSelectNome = new StringBuilder()
-			.append("  SELECT DISTINCT ")
-			.append("  id")
-			.append("  ,TB_BENEFICIARIO_NOME")
-			.append("  FROM TB_BENEFICIARIO ");
+	@Override
+	public BeneficiarioDto findBeneficiarioById(Long id) throws SQLException {
+		StringBuilder sql = new StringBuilder(sqlSelectPrincipal);
+	    sql.append(" WHERE ID = :id");
+	    SqlParameterSource params = new MapSqlParameterSource().addValue("id", id);
+	    return jdbcTemplate.queryForObject(sql.toString(), params, (rs, i) -> {
+	        BeneficiarioDto beneficiarioDto = new BeneficiarioDto();            
+	        beneficiarioDto.setId(rs.getLong("ID"));
+	        beneficiarioDto.setBeneficiarioNome(rs.getString("TB_BENEFICIARIO_NOME"));
+			beneficiarioDto.setBeneficiarioTelefone(rs.getString("TB_BENEFICIARIO_TELEFONE"));
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_ATUALIZACAO"));
+			beneficiarioDto.setBeneficiarioDataAtualizacao(dataFormatada);
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_INCLUSAO"));
+			beneficiarioDto.setBeneficiarioDataInclusao(dataFormatada);
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_NASCIMENTO"));
+			beneficiarioDto.setBeneficiarioDataNascimento(dataFormatada);
+	        return beneficiarioDto;
+	    });	    
+	}
 
 
 	@Override
@@ -95,9 +123,12 @@ public class BeneficiarioRepositoryImpl implements BeneficiarioRepository {
 			beneficiarioDto.setId(rs.getLong("id"));
 			beneficiarioDto.setBeneficiarioNome(rs.getString("TB_BENEFICIARIO_NOME"));
 			beneficiarioDto.setBeneficiarioTelefone(rs.getString("TB_BENEFICIARIO_TELEFONE"));
-			beneficiarioDto.setBeneficiarioDataAtualizacao(rs.getDate("TB_BENEFICIARIO_DATA_ATUALIZACAO"));
-			beneficiarioDto.setBeneficiarioDataInclusao(rs.getDate("TB_BENEFICIARIO_DATA_INCLUSAO"));
-			beneficiarioDto.setBeneficiarioDataNascimento(rs.getDate("TB_BENEFICIARIO_DATA_NASCIMENTO"));
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_ATUALIZACAO"));
+			beneficiarioDto.setBeneficiarioDataAtualizacao(dataFormatada);
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_INCLUSAO"));
+			beneficiarioDto.setBeneficiarioDataInclusao(dataFormatada);
+			dataFormatada = formatador.format(rs.getDate("TB_BENEFICIARIO_DATA_NASCIMENTO"));
+			beneficiarioDto.setBeneficiarioDataNascimento(dataFormatada);
 			return beneficiarioDto;
 		});
 	}
@@ -135,5 +166,7 @@ public class BeneficiarioRepositoryImpl implements BeneficiarioRepository {
 		jdbcTemplate.update(sql.toString(), params);
 		
 	}
+
+
 
 }

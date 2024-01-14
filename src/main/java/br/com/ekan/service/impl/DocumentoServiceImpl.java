@@ -22,8 +22,17 @@ public class DocumentoServiceImpl implements DocumentoService {
 		try {
             return documentoRepository.findDocumentoByIdBeneficiario(id);
         } catch (SQLException e) {
-        	throw new CreationException("Erro ao listar o beneficiario", e.getCause());
+        	throw new CreationException("Erro ao listar o documentos", e.getCause());
         }
+	}
+
+	@Override
+	public void deleteDocumento(Long id) throws SQLException {
+		try {
+			documentoRepository.deleteDocumento(id);
+		} catch (SQLException e) {
+			throw new CreationException("Erro ao excluir o documento", e.getCause());
+		}
 	}
 
 }

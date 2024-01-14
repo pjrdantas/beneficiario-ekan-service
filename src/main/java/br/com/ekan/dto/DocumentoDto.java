@@ -1,8 +1,6 @@
 // DocumentoDto
 package br.com.ekan.dto;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,10 +22,10 @@ public class DocumentoDto {
     private Long id;
 
     @JsonProperty("documentoDataAtualizacao")
-    private Date documentoDataAtualizacao;
+    private String documentoDataAtualizacao;
 
     @JsonProperty("documentoDataInclusao")
-    private Date documentoDataInclusao;
+    private String documentoDataInclusao;
 
     @JsonProperty("documentoDescricao")
     private String documentoDescricao;
